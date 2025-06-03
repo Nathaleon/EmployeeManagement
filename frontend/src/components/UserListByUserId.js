@@ -11,21 +11,26 @@ const UserListByUserId = () => {
   const axiosJWT = useAxiosInterceptor();
 
   const getUsers = useCallback(async () => {
-    if (!auth || !auth.id) {
-      console.log("Authenticated user ID not found.");
+    if (!auth?.userId) {
+      console.log("No userId found in auth state");
+      setAuth(null);
+      navigate("/login");
       return;
     }
+
     try {
-      const response = await axiosJWT.get(`/users/creator/${auth.id}`);
+      console.log("Fetching users for creator ID:", auth.userId);
+      const response = await axiosJWT.get(`/users/by-creator/${auth.userId}`);
+      console.log("Users data:", response.data);
       setUsers(response.data);
     } catch (error) {
-      console.log("Error fetching users by creator:", error);
+      console.log("Error fetching users:", error);
       if (error.response && (error.response.status === 401 || error.response.status === 403)) {
         setAuth(null);
         navigate("/login");
       }
     }
-  }, [auth, axiosJWT, setAuth, navigate]);
+  }, [axiosJWT, setAuth, navigate, auth?.userId]);
 
   useEffect(() => {
     getUsers();
