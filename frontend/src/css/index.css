@@ -1,8 +1,9 @@
 body {
   font-family: Arial, sans-serif;
-  padding: 20px;
+  /* padding: 20px; Removed to allow Bulma sections/containers to manage padding */
 }
 
+/* 
 input {
   display: block;
   margin-bottom: 10px;
@@ -13,3 +14,4 @@ button {
   padding: 6px 12px;
   cursor: pointer;
 }
+*/

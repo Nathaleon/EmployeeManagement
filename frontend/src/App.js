@@ -11,109 +11,63 @@ import UserDetail from "./components/UserDetail"; // Import halaman detail
 import AddDepartment from "./components/AddDepartment";
 import AddPosition from "./components/AddPosition";
 import EditDepartment from "./components/EditDepartment";
-import EditPosition from "./components/EditPostion";
+import EditPosition from "./components/EditPosition";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
   return (
     <Router>
       <Routes>
+  
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        {/* Rute yang perlu login */}
         <Route
           path="/users"
-          element={
-            <ProtectedRoute>
-              <UserList />
-            </ProtectedRoute>
-          }
+          element={<ProtectedRoute><UserList /></ProtectedRoute>}
         />
         <Route
           path="/users/by-creator"
-          element={
-            <ProtectedRoute>
-              <UserListByUserId />
-            </ProtectedRoute>
-          }
+          element={<ProtectedRoute><UserListByUserId /></ProtectedRoute>}
         />
         <Route
           path="/departments"
-          element={
-            <ProtectedRoute>
-              <DepartmentList />
-            </ProtectedRoute>
-          }
+          element={<ProtectedRoute><DepartmentList /></ProtectedRoute>}
         />
         <Route
           path="/positions"
-          element={
-            <ProtectedRoute>
-              <PositionList />
-            </ProtectedRoute>
-          }
+          element={<ProtectedRoute><PositionList /></ProtectedRoute>}
         />
         <Route
           path="/users/add"
-          element={
-            <ProtectedRoute>
-              <AddUser />
-            </ProtectedRoute>
-          }
+          element={<ProtectedRoute><AddUser /></ProtectedRoute>}
         />
         <Route
           path="/users/edit/:id"
-          element={
-            <ProtectedRoute>
-              <EditUser />
-            </ProtectedRoute>
-          }
+          element={<ProtectedRoute><EditUser /></ProtectedRoute>}
         />
         <Route
           path="/users/detail/:id"
-          element={
-            <ProtectedRoute>
-              <UserDetail />
-            </ProtectedRoute>
-          }
+          element={<ProtectedRoute><UserDetail /></ProtectedRoute>}
         />
-
-        {/* Halaman lainnya */}
         <Route
           path="/departments/add"
-          element={
-            <ProtectedRoute>
-              <AddDepartment />
-            </ProtectedRoute>
-          }
+          element={<ProtectedRoute><AddDepartment /></ProtectedRoute>}
         />
         <Route
           path="/departments/edit/:id"
-          element={
-            <ProtectedRoute>
-              <EditDepartment />
-            </ProtectedRoute>
-          }
+          element={<ProtectedRoute><EditDepartment /></ProtectedRoute>}
         />
         <Route
           path="/positions/add"
-          element={
-            <ProtectedRoute>
-              <AddPosition />
-            </ProtectedRoute>
-          }
+          element={<ProtectedRoute><AddPosition /></ProtectedRoute>}
         />
         <Route
           path="/positions/edit/:id"
-          element={
-            <ProtectedRoute>
-              <EditPosition />
-            </ProtectedRoute>
-          }
+          element={<ProtectedRoute><EditPosition /></ProtectedRoute>}
         />
 
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Login />} /> 
         <Route path="*" element={<Login />} />
       </Routes>
     </Router>

@@ -49,86 +49,77 @@ const DepartmentList = () => {
   };
 
   return (
-    <div>
+    <>
       <Navbar />
-      
-      <div className="columns mt-5 is-centered">
-        <div className="column is-three-quarters">
-          <div className="box">
-            <h1 className="title is-4">Daftar Departemen</h1>
-            
-            {msg && (
-              <div className={`notification ${msg.includes("berhasil") ? "is-success" : "is-danger"}`}>
-                <button 
-                  className="delete" 
-                  onClick={() => setMsg("")}
-                ></button>
-                {msg}
+      <section className="section">
+        <div className="container">
+          <div className="columns is-centered">
+            <div className="column is-two-thirds-tablet is-half-desktop">
+              <div className="mb-5">
+                <Link to="/departments/add" className="button is-success">
+                  <span className="icon is-small"><i className="fas fa-plus"></i></span>
+                  <span>Tambah Departemen Baru</span>
+                </Link>
               </div>
-            )}
-
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "1rem" }}>
-              <Link to="/departments/add" className="button is-success">
-                <span className="icon">
-                  <i className="fas fa-plus"></i>
-                </span>
-                <span>Tambah Departemen</span>
-              </Link>
-            </div>
-
-            <div className="table-container">
-              <table className="table is-striped is-fullwidth is-hoverable">
-                <thead>
-                  <tr>
-                    <th>No</th>
-                    <th>Nama Departemen</th>
-                    <th>Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {departments.length > 0 ? (
-                    departments.map((department, index) => (
-                      <tr key={department.id}>
-                        <td>{index + 1}</td>
-                        <td>{department.name}</td>
-                        <td>
-                          <div className="buttons">
-                            <Link 
-                              to={`/departments/edit/${department.id}`} 
-                              className="button is-small is-info"
-                            >
-                              <span className="icon">
-                                <i className="fas fa-edit"></i>
-                              </span>
-                              <span>Edit</span>
-                            </Link>
-                            <button
-                              onClick={() => deleteDepartment(department.id)}
-                              className="button is-small is-danger"
-                            >
-                              <span className="icon">
-                                <i className="fas fa-trash"></i>
-                              </span>
-                              <span>Hapus</span>
-                            </button>
-                          </div>
-                        </td>
+              <div className="box">
+                <h1 className="title is-4 mb-4 has-text-centered">Daftar Departemen</h1>
+                {msg && (
+                  <div className={`notification ${msg.includes("berhasil") ? "is-success is-light" : "is-danger is-light"}`}>
+                    <button className="delete" onClick={() => setMsg("")}></button>
+                    {msg}
+                  </div>
+                )}
+                <div className="table-container">
+                  <table className="table is-striped is-hoverable is-fullwidth">
+                    <thead>
+                      <tr>
+                        <th>No</th>
+                        <th>Nama Departemen</th>
+                        <th>Aksi</th>
                       </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan="3" className="has-text-centered">
-                        Tidak ada departemen untuk ditampilkan.
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
+                    </thead>
+                    <tbody>
+                      {departments.length > 0 ? (
+                        departments.map((department, index) => (
+                          <tr key={department.id}>
+                            <td>{index + 1}</td>
+                            <td>{department.name}</td>
+                            <td>
+                              <div className="buttons is-centered">
+                                <Link 
+                                  to={`/departments/edit/${department.id}`} 
+                                  className="button is-small is-info"
+                                >
+                                  <span className="icon is-small"><i className="fas fa-edit"></i></span>
+                                  <span>Edit</span>
+                                </Link>
+                                <button
+                                  onClick={() => deleteDepartment(department.id)}
+                                  className="button is-small is-danger"
+                                >
+                                  <span className="icon is-small"><i className="fas fa-trash"></i></span>
+                                  <span>Hapus</span>
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        ))
+                      ) : (
+                        <tr>
+                          <td colSpan="3" className="has-text-centered">
+                            Tidak ada departemen untuk ditampilkan.
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </section>
+    </>
   );
 };
 

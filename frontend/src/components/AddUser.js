@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useAxiosInterceptor from "../api/axiosInterceptor";
 import { useAuth } from "../auth/useAuth";
-import Navbar from "./Navbar";
 
 const AddUser = () => {
   const [nama, setNama] = useState("");
@@ -64,101 +63,98 @@ const AddUser = () => {
   };
 
   return (
-    <div>
-      <Navbar />
-      <div className="columns mt-5 is-centered">
-        <div className="column is-half">
-          <form onSubmit={saveUser}>
-            {msg && <p className="has-text-danger mb-4">{msg}</p>}
+    <div className="columns mt-5 is-centered">
+      <div className="column is-half">
+        <form onSubmit={saveUser}>
+          {msg && <p className="has-text-danger mb-4">{msg}</p>}
 
-            <div className="field">
-              <label className="label">Nama</label>
-              <div className="control">
-                <input
-                  type="text"
-                  className="input"
-                  value={nama}
-                  onChange={(e) => setNama(e.target.value)}
-                  placeholder="Nama"
+          <div className="field">
+            <label className="label">Nama</label>
+            <div className="control">
+              <input
+                type="text"
+                className="input"
+                value={nama}
+                onChange={(e) => setNama(e.target.value)}
+                placeholder="Nama"
+              />
+            </div>
+          </div>
+
+          <div className="field">
+            <label className="label">NIP</label>
+            <div className="control">
+              <input
+                type="text"
+                className="input"
+                value={nip}
+                onChange={(e) => setNip(e.target.value)}
+                placeholder="Nomor Induk Pegawai"
+              />
+            </div>
+          </div>
+
+          <div className="field">
+            <label className="label">Departemen</label>
+            <div className="control">
+              <div className="select is-fullwidth">
+                <select value={departmentId} onChange={(e) => setDepartmentId(e.target.value)}>
+                  <option value="">Pilih Departemen</option>
+                  {departments.map((dep) => (
+                    <option key={dep.id} value={dep.id}>{dep.name}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div className="field">
+            <label className="label">Posisi</label>
+            <div className="control">
+              <div className="select is-fullwidth">
+                <select value={positionId} onChange={(e) => setPositionId(e.target.value)}>
+                  <option value="">Pilih Posisi</option>
+                  {positions.map((pos) => (
+                    <option key={pos.id} value={pos.id}>{pos.name}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div className="field">
+            <label className="label">URL Foto</label>
+            <div className="control">
+              <input
+                type="url"
+                className="input"
+                value={foto}
+                onChange={(e) => setFoto(e.target.value)}
+                placeholder="Masukkan URL foto (opsional)"
+              />
+            </div>
+            {foto && (
+              <div className="mt-2">
+                <img 
+                  src={foto} 
+                  alt="Preview" 
+                  style={{ 
+                    maxWidth: "200px", 
+                    maxHeight: "200px", 
+                    objectFit: "cover",
+                    borderRadius: "4px"
+                  }} 
                 />
               </div>
-            </div>
+            )}
+          </div>
 
-            <div className="field">
-              <label className="label">NIP</label>
-              <div className="control">
-                <input
-                  type="text"
-                  className="input"
-                  value={nip}
-                  onChange={(e) => setNip(e.target.value)}
-                  placeholder="Nomor Induk Pegawai"
-                />
-              </div>
-            </div>
-
-            <div className="field">
-              <label className="label">Departemen</label>
-              <div className="control">
-                <div className="select is-fullwidth">
-                  <select value={departmentId} onChange={(e) => setDepartmentId(e.target.value)}>
-                    <option value="">Pilih Departemen</option>
-                    {departments.map((dep) => (
-                      <option key={dep.id} value={dep.id}>{dep.name}</option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div className="field">
-              <label className="label">Posisi</label>
-              <div className="control">
-                <div className="select is-fullwidth">
-                  <select value={positionId} onChange={(e) => setPositionId(e.target.value)}>
-                    <option value="">Pilih Posisi</option>
-                    {positions.map((pos) => (
-                      <option key={pos.id} value={pos.id}>{pos.name}</option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div className="field">
-              <label className="label">URL Foto</label>
-              <div className="control">
-                <input
-                  type="url"
-                  className="input"
-                  value={foto}
-                  onChange={(e) => setFoto(e.target.value)}
-                  placeholder="Masukkan URL foto (opsional)"
-                />
-              </div>
-              {foto && (
-                <div className="mt-2">
-                  <img 
-                    src={foto} 
-                    alt="Preview" 
-                    style={{ 
-                      maxWidth: "200px", 
-                      maxHeight: "200px", 
-                      objectFit: "cover",
-                      borderRadius: "4px"
-                    }} 
-                  />
-                </div>
-              )}
-            </div>
-
-            <div className="field">
-              <button type="submit" className="button is-success">
-                Simpan
-              </button>
-            </div>
-          </form>
-        </div>
+          <div className="field">
+            <button type="submit" className="button is-success">
+              Simpan
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

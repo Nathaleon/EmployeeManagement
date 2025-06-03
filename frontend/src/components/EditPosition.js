@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useAxiosInterceptor from "../api/axiosInterceptor";
 import { useAuth } from "../auth/useAuth";
-import Navbar from "./Navbar";
+import Navbar from "./Navbar"; // Import Navbar
 
-const EditDepartment = () => {
+const EditPosition = () => {
   const [name, setName] = useState("");
   const [msg, setMsg] = useState("");
   const [loading, setLoading] = useState(true);
@@ -14,14 +14,14 @@ const EditDepartment = () => {
   const { setAuth } = useAuth();
 
   useEffect(() => {
-    const getDepartmentById = async () => {
+    const getPositionById = async () => {
       try {
-        const response = await axiosJWT.get(`/departments/${id}`);
+        const response = await axiosJWT.get(`/positions/${id}`);
         setName(response.data.name);
         setLoading(false);
       } catch (error) {
-        console.log("Error fetching department:", error);
-        setMsg("Gagal mengambil data departemen. Mohon coba lagi.");
+        console.log("Error fetching position:", error);
+        setMsg("Gagal mengambil data posisi. Mohon coba lagi.");
         setLoading(false);
         if (error.response && (error.response.status === 401 || error.response.status === 403)) {
           setAuth(null);
@@ -30,28 +30,29 @@ const EditDepartment = () => {
       }
     };
 
-    getDepartmentById();
+    getPositionById();
   }, [id, axiosJWT, setAuth, navigate]);
 
-  const updateDepartment = async (e) => {
+  const updatePosition = async (e) => {
     e.preventDefault();
     setMsg("");
 
     if (!name.trim()) {
-      setMsg("Nama departemen wajib diisi.");
+      setMsg("Nama posisi wajib diisi.");
       return;
     }
 
     try {
-      await axiosJWT.patch(`/departments/${id}`, { name: name.trim() });
-      navigate("/departments");
+      await axiosJWT.patch(`/positions/${id}`, { name: name.trim() });
+      // Add success message or navigate with a success state if desired
+      navigate("/positions"); 
     } catch (error) {
-      console.log("Error updating department:", error);
+      console.log("Error updating position:", error);
       if (error.response && (error.response.status === 401 || error.response.status === 403)) {
         setAuth(null);
         navigate("/login");
       } else {
-        setMsg(error.response?.data?.msg || "Gagal memperbarui departemen. Mohon coba lagi.");
+        setMsg(error.response?.data?.msg || "Gagal memperbarui posisi. Mohon coba lagi.");
       }
     }
   };
@@ -64,14 +65,16 @@ const EditDepartment = () => {
           <div className="columns is-centered">
             <div className="column is-half-tablet is-one-third-desktop">
               <div className="box">
-                <h1 className="title is-4 has-text-centered">Edit Departemen</h1>
+                <h1 className="title is-4 has-text-centered">Edit Posisi</h1>
                 
                 {loading ? (
                   <div className="has-text-centered">
-                    <p>Memuat data departemen...</p>
+                    <p>Memuat data posisi...</p>
+                    {/* Optional: Bulma loader */}
+                    {/* <button className="button is-loading is-large is-ghost is-centered">Loading</button> */}
                   </div>
                 ) : (
-                  <form onSubmit={updateDepartment}>
+                  <form onSubmit={updatePosition}>
                     {msg && (
                       <div className="notification is-danger is-light">
                         <button 
@@ -84,15 +87,15 @@ const EditDepartment = () => {
                     )}
 
                     <div className="field">
-                      <label htmlFor="departmentName" className="label">Nama Departemen</label>
+                      <label htmlFor="positionName" className="label">Nama Posisi</label>
                       <div className="control">
                         <input
-                          id="departmentName"
+                          id="positionName"
                           type="text"
                           className="input"
                           value={name}
                           onChange={(e) => setName(e.target.value)}
-                          placeholder="Masukkan nama departemen"
+                          placeholder="Masukkan nama posisi"
                         />
                       </div>
                     </div>
@@ -110,7 +113,7 @@ const EditDepartment = () => {
                         <button 
                           type="button" 
                           className="button is-light"
-                          onClick={() => navigate("/departments")}
+                          onClick={() => navigate("/positions")}
                         >
                           <span className="icon">
                             <i className="fas fa-arrow-left"></i>
@@ -130,4 +133,4 @@ const EditDepartment = () => {
   );
 };
 
-export default EditDepartment;
+export default EditPosition; 
