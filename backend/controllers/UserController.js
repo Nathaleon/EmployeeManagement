@@ -192,7 +192,7 @@ export const deleteUser = async (req, res) => {
     const deleted = await User.destroy({
       where: {
         id: req.params.id,
-        userId: req.userId,
+        addedByUserId: req.userId,
       },
     });
     if (!deleted) {
